@@ -122,14 +122,14 @@ function runStream(el, html, options) {
   });
 
   // Override window.onerror
-  const oldOnError = active.win.onerror || doNothing;
+  //const oldOnError = active.win.onerror || doNothing;
 
   // This works together with the try/catch around WriteStream::insertScript
   // In modern browsers, exceptions in tag scripts go directly to top level
-  active.win.onerror = (msg, url, line) => {
-    options.error({msg: `${msg} - ${url}: ${line}`});
-    oldOnError.apply(active.win, [msg, url, line]);
-  };
+  //active.win.onerror = (msg, url, line) => {
+  //  options.error({msg: `${msg} - ${url}: ${line}`});
+  //  oldOnError.apply(active.win, [msg, url, line]);
+  //};
 
   // Write to the stream
   active.write(html, () => {
@@ -137,7 +137,7 @@ function runStream(el, html, options) {
     Object.assign(doc, stash);
 
     // restore window.onerror
-    active.win.onerror = oldOnError;
+    //active.win.onerror = oldOnError;
 
     options.done();
     active = null;
@@ -181,9 +181,9 @@ export default function postscribe(el, html, options) {
   options.beforeEnqueue(args);
   queue.push(args);
 
-  if (!active) {
+//  if (!active) {
     nextStream();
-  }
+//  }
 
   return el.postscribe;
 }
